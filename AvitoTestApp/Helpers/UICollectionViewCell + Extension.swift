@@ -1,8 +1,7 @@
-//
-//  UICollectionViewCell + Extension.swift
-//  AvitoTestApp
-//
-//  Created by Dmitry Medvedev on 25.08.2023.
-//
+import UIKit
 
-import Foundation
+extension UICollectionViewCell {
+    static var identifier: String {
+        String(describing: self)
+    }
+}
