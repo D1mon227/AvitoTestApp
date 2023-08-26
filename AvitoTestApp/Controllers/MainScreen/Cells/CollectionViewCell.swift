@@ -10,7 +10,7 @@ final class CollectionViewCell: UICollectionViewCell {
         return element
     }()
     
-    private lazy var productDescription: UILabel = {
+    private lazy var productTitle: UILabel = {
         let element = UILabel()
         element.font = .systemFont(ofSize: 15, weight: .regular)
         element.textAlignment = .left
@@ -53,22 +53,18 @@ final class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(image: UIImage?,
-                       decsription: String,
-                       price: String,
-                       location: String,
-                       time: String) {
-        productImage.image = image
-        productDescription.text = decsription
-        productPrice.text = price
-        productLocation.text = location
-        productTime.text = time
+    func configureCell(model: Products) {
+        productImage.setImage(with: model.image_url)
+        productTitle.text = model.title
+        productPrice.text = model.price
+        productLocation.text = model.location
+        productTime.text = convert(date: model.created_date)
     }
     
     private func setupViews() {
         backgroundColor = .backgroundDay
         addSubview(productImage)
-        addSubview(productDescription)
+        addSubview(productTitle)
         addSubview(productPrice)
         addSubview(productLocation)
         addSubview(productTime)
@@ -80,14 +76,14 @@ final class CollectionViewCell: UICollectionViewCell {
             make.height.equalTo(productImage.snp.width)
         }
         
-        productDescription.snp.makeConstraints { make in
+        productTitle.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(productImage.snp.bottom).offset(7)
         }
         
         productPrice.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(productDescription.snp.bottom).offset(7)
+            make.top.equalTo(productTitle.snp.bottom).offset(7)
         }
         
         productLocation.snp.makeConstraints { make in

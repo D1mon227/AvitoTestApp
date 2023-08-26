@@ -1,7 +1,9 @@
 import UIKit
 import SnapKit
 
-final class StartPageViewController: UIViewController {
+final class StartPageViewController: UIViewController, StartPageViewControllerProtocol {
+    var presenter: StartPagePresenterProtocol?
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let element = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -9,10 +11,26 @@ final class StartPageViewController: UIViewController {
         return element
     }()
     
+    init(presenter: StartPagePresenterProtocol?) {
+        super.init(nibName: nil, bundle: nil)
+        self.presenter = presenter
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupCollectionView()
+        presenter?.getData()
+    }
+    
+    func reloadCollectionView() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
     private func setupCollectionView() {
@@ -24,17 +42,15 @@ final class StartPageViewController: UIViewController {
 
 extension StartPageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        guard let countOfProducts = presenter?.products?.count else { return 0 }
+        return countOfProducts
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as? CollectionViewCell,
+              let product = presenter?.products?[indexPath.row] else { return UICollectionViewCell() }
         
-        cell.configureCell(image: UIImage(named: "iphone15ProMax"),
-                           decsription: "iPhone 15 pro max в хорошем состоянии покупайте",
-                           price: "150000 руб.",
-                           location: "Москва, Новокосино",
-                           time: "Сегодня, 16:04")
+        cell.configureCell(model: product)
         return cell
     }
 }
