@@ -2,16 +2,18 @@ import UIKit
 
 final class CustomNavigationController: UINavigationController {
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        
         if viewControllers.isEmpty {
-            viewController.hidesBottomBarWhenPushed = false
+            if let navBar = viewController.navigationController?.navigationBar {
+                navBar.isHidden = true
+            }
         } else {
             let backButton = UIButton(type: .system)
-            backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-            backButton.tintColor = .black
+            backButton.setImage(Resources.Images.backButton, for: .normal)
+            backButton.tintColor = .blackDay
             backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
             let backButtonBarItem = UIBarButtonItem(customView: backButton)
             viewController.navigationItem.leftBarButtonItem = backButtonBarItem
-            viewController.hidesBottomBarWhenPushed = true
         }
         super.pushViewController(viewController, animated: animated)
     }

@@ -2,7 +2,8 @@ import Foundation
 
 final class StartPagePresenter: StartPagePresenterProtocol {
     weak var view: StartPageViewControllerProtocol?
-    private let networkManager = NetworkManager.shared
+    private let networkManager: NetworkManager
+    private let appCoordinator: AppCoordinator
     
     var products: [Products]? {
         didSet {
@@ -10,7 +11,12 @@ final class StartPagePresenter: StartPagePresenterProtocol {
         }
     }
     
-    func getData() {
+    init(networkManager: NetworkManager, appCoordinator: AppCoordinator) {
+        self.networkManager = networkManager
+        self.appCoordinator = appCoordinator
+    }
+    
+    func fetchProducts() {
         networkManager.fetchProducts { [weak self] result in
             guard let self else { return }
             switch result {
@@ -20,5 +26,9 @@ final class StartPagePresenter: StartPagePresenterProtocol {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func switchToProductDetailsVC(id: String) {
+        appCoordinator.switchToProductDetailsVC(id: id)
     }
 }

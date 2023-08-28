@@ -24,7 +24,7 @@ final class StartPageViewController: UIViewController, StartPageViewControllerPr
         super.viewDidLoad()
         setupViews()
         setupCollectionView()
-        presenter?.getData()
+        presenter?.fetchProducts()
     }
     
     func reloadCollectionView() {
@@ -71,6 +71,11 @@ extension StartPageViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 0, left: 16, bottom: 8, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let productID = presenter?.products?[indexPath.row].id else { return }
+        presenter?.switchToProductDetailsVC(id: productID)
     }
 }
 

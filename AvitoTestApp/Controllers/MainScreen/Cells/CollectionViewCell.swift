@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class CollectionViewCell: UICollectionViewCell {
+final class CollectionViewCell: UICollectionViewCell, DateConvertable {
     private lazy var productImage: UIImageView = {
         let element = UIImageView()
         element.layer.cornerRadius = 8
@@ -12,7 +12,7 @@ final class CollectionViewCell: UICollectionViewCell {
     
     private lazy var productTitle: UILabel = {
         let element = UILabel()
-        element.font = .systemFont(ofSize: 15, weight: .regular)
+        element.font = .bodyRegular
         element.textAlignment = .left
         element.textColor = .blackDay
         element.numberOfLines = 2
@@ -21,7 +21,7 @@ final class CollectionViewCell: UICollectionViewCell {
     
     private lazy var productPrice: UILabel = {
         let element = UILabel()
-        element.font = .systemFont(ofSize: 15, weight: .bold)
+        element.font = .bodyBold
         element.textAlignment = .left
         element.textColor = .blackDay
         return element
@@ -29,15 +29,15 @@ final class CollectionViewCell: UICollectionViewCell {
     
     private lazy var productLocation: UILabel = {
         let element = UILabel()
-        element.font = .systemFont(ofSize: 13, weight: .regular)
+        element.font = .caption1
         element.textAlignment = .left
         element.textColor = .gray
         return element
     }()
     
-    private lazy var productTime: UILabel = {
+    private lazy var productDate: UILabel = {
         let element = UILabel()
-        element.font = .systemFont(ofSize: 13, weight: .regular)
+        element.font = .caption1
         element.textAlignment = .left
         element.textColor = .gray
         return element
@@ -58,7 +58,7 @@ final class CollectionViewCell: UICollectionViewCell {
         productTitle.text = model.title
         productPrice.text = model.price
         productLocation.text = model.location
-        productTime.text = convert(date: model.created_date)
+        productDate.text = convert(date: model.created_date)
     }
     
     private func setupViews() {
@@ -67,7 +67,7 @@ final class CollectionViewCell: UICollectionViewCell {
         addSubview(productTitle)
         addSubview(productPrice)
         addSubview(productLocation)
-        addSubview(productTime)
+        addSubview(productDate)
     }
     
     private func setupConstraints() {
@@ -91,7 +91,7 @@ final class CollectionViewCell: UICollectionViewCell {
             make.top.equalTo(productPrice.snp.bottom).offset(7)
         }
         
-        productTime.snp.makeConstraints { make in
+        productDate.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(productLocation.snp.bottom).offset(2)
         }

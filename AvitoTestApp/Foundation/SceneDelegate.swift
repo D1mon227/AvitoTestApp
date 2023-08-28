@@ -8,7 +8,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let startPage = ModuleFactory.makeStartPageModule()
+        let appCoordinator = AppCoordinator(window: window)
+        let startPage = ModuleFactory.makeStartPageModule(appCoordinator: appCoordinator)
         let mainScreen = CustomNavigationController(rootViewController: startPage)
         window?.rootViewController = mainScreen
         window?.makeKeyAndVisible()
