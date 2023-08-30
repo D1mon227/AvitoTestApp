@@ -7,7 +7,7 @@ protocol DateConvertable {
 extension String {
     static let inputDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-d"
+        formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
 

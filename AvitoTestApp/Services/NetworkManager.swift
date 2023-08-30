@@ -8,8 +8,13 @@ enum NetworkError: Error {
 
 final class NetworkManager {
     private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
     
     func fetchProducts(completion: @escaping (Result<[Products], Error>) -> Void) {
+        
+        assert(Thread.isMainThread)
+        if task != nil { return }
+        
         let urlString = Resources.Network.baseURL + Resources.Network.Paths.mainPage
         guard let url = URL(string: urlString) else { return }
         let task = urlSession.dataTask(with: url) { data, responce, error in
@@ -35,10 +40,15 @@ final class NetworkManager {
                 }
             }
         }
+        self.task = task
         task.resume()
     }
     
     func fetchProductInfo(id: String, completion: @escaping (Result<ProductInfo, Error>) -> Void) {
+        
+        assert(Thread.isMainThread)
+        if task != nil { return }
+        
         let urlString = Resources.Network.baseURL + Resources.Network.Paths.detailsPage + "\(id).json"
         guard let url = URL(string: urlString) else { return }
         let task = urlSession.dataTask(with: url) { data, responce, error in
@@ -64,6 +74,7 @@ final class NetworkManager {
                 }
             }
         }
+        self.task = task
         task.resume()
     }
 }

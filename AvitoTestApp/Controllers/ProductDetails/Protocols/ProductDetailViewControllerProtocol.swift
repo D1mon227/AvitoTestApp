@@ -1,7 +1,8 @@
 import Foundation
 
-protocol ProductDetailViewControllerProtocol: AnyObject {
+protocol ProductDetailViewControllerProtocol: AlertPresenterDelegate {
     var presenter: ProductDetailPresenterProtocol? { get set }
     func updateProductImage(model: ProductInfo)
     func updateTableView()
+    func showErrorAlert()
 }

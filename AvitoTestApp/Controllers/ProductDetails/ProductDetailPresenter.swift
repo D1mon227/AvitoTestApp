@@ -22,15 +22,17 @@ final class ProductDetailPresenter: ProductDetailPresenterProtocol {
     }
     
     func fetchProductInformation() {
+        UIBlockingProgressHUD.show()
         guard let id = productID else { return }
         networkManager.fetchProductInfo(id: id) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let data):
                 self.productInfo = data
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                self.view?.showErrorAlert()
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
 }

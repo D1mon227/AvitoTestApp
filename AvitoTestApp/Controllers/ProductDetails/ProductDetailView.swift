@@ -40,7 +40,7 @@ final class ProductDetailView {
     lazy var priceLabel: UILabel = {
         let element = UILabel()
         element.textColor = .blackDay
-        element.font = .headlineBold
+        element.font = .headlineBold2
         element.textAlignment = .left
         return element
     }()

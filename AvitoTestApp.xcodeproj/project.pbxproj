@@ -29,7 +29,7 @@
 		731163412A98EB5C00C1C7B3 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731163402A98EB5C00C1C7B3 /* UIColor + Extension.swift */; };
 		731163442A98EDFC00C1C7B3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 731163432A98EDFC00C1C7B3 /* SnapKit */; };
 		731163462A98EFE800C1C7B3 /* Cell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731163452A98EFE800C1C7B3 /* Cell + Extension.swift */; };
-		731163492A98F05D00C1C7B3 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731163482A98F05D00C1C7B3 /* CollectionViewCell.swift */; };
+		731163492A98F05D00C1C7B3 /* ProductsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731163482A98F05D00C1C7B3 /* ProductsCollectionViewCell.swift */; };
 		7311634C2A99EED600C1C7B3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311634B2A99EED600C1C7B3 /* NetworkManager.swift */; };
 		7311634F2A99F29800C1C7B3 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311634E2A99F29700C1C7B3 /* Products.swift */; };
 		731163522A99FFDE00C1C7B3 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 731163512A99FFDE00C1C7B3 /* Kingfisher */; };
@@ -37,6 +37,12 @@
 		733D24102A9BB2D100A76478 /* ProductDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733D240F2A9BB2D100A76478 /* ProductDetailTableViewCell.swift */; };
 		733D24122A9CBEEC00A76478 /* ProductDetailTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733D24112A9CBEEC00A76478 /* ProductDetailTableViewHeader.swift */; };
 		733D24142A9CF2C700A76478 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733D24132A9CF2C700A76478 /* String + Extension.swift */; };
+		733D24172A9D56CA00A76478 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 733D24162A9D56CA00A76478 /* ProgressHUD */; };
+		733D24192A9D56EE00A76478 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733D24182A9D56EE00A76478 /* UIBlockingProgressHUD.swift */; };
+		733D241D2A9D598700A76478 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733D241C2A9D598700A76478 /* Alert.swift */; };
+		73E417AB2A9F481B00118FE4 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E417AA2A9F481B00118FE4 /* AlertService.swift */; };
+		73E417AE2A9F8CB500118FE4 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E417AD2A9F8CB500118FE4 /* CategoriesCollectionViewCell.swift */; };
+		73E417B02A9FB01B00118FE4 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E417AF2A9FB01B00118FE4 /* Section.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,13 +69,18 @@
 		7311633D2A98EB0900C1C7B3 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		731163402A98EB5C00C1C7B3 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		731163452A98EFE800C1C7B3 /* Cell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cell + Extension.swift"; sourceTree = "<group>"; };
-		731163482A98F05D00C1C7B3 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		731163482A98F05D00C1C7B3 /* ProductsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewCell.swift; sourceTree = "<group>"; };
 		7311634B2A99EED600C1C7B3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		7311634E2A99F29700C1C7B3 /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		731163532A99FFFD00C1C7B3 /* UIImageView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Extension.swift"; sourceTree = "<group>"; };
 		733D240F2A9BB2D100A76478 /* ProductDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTableViewCell.swift; sourceTree = "<group>"; };
 		733D24112A9CBEEC00A76478 /* ProductDetailTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTableViewHeader.swift; sourceTree = "<group>"; };
 		733D24132A9CF2C700A76478 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
+		733D24182A9D56EE00A76478 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
+		733D241C2A9D598700A76478 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		73E417AA2A9F481B00118FE4 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
+		73E417AD2A9F8CB500118FE4 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		73E417AF2A9FB01B00118FE4 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				733D24172A9D56CA00A76478 /* ProgressHUD in Frameworks */,
 				731163522A99FFDE00C1C7B3 /* Kingfisher in Frameworks */,
 				731163442A98EDFC00C1C7B3 /* SnapKit in Frameworks */,
 			);
@@ -203,6 +215,7 @@
 				731163532A99FFFD00C1C7B3 /* UIImageView + Extension.swift */,
 				7308C8682A9A94AC00AFDA3C /* Fonts + Extension.swift */,
 				733D24132A9CF2C700A76478 /* String + Extension.swift */,
+				733D24182A9D56EE00A76478 /* UIBlockingProgressHUD.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -210,7 +223,8 @@
 		731163472A98F03700C1C7B3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				731163482A98F05D00C1C7B3 /* CollectionViewCell.swift */,
+				73E417AD2A9F8CB500118FE4 /* CategoriesCollectionViewCell.swift */,
+				731163482A98F05D00C1C7B3 /* ProductsCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -218,7 +232,9 @@
 		7311634A2A99EEC000C1C7B3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				73E417AA2A9F481B00118FE4 /* AlertService.swift */,
 				7311634B2A99EED600C1C7B3 /* NetworkManager.swift */,
+				73E417AF2A9FB01B00118FE4 /* Section.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -226,6 +242,7 @@
 		7311634D2A99F1A100C1C7B3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				733D241C2A9D598700A76478 /* Alert.swift */,
 				7311634E2A99F29700C1C7B3 /* Products.swift */,
 				7308C8582A9A12B000AFDA3C /* ProductDetails.swift */,
 			);
@@ -260,6 +277,7 @@
 			packageProductDependencies = (
 				731163432A98EDFC00C1C7B3 /* SnapKit */,
 				731163512A99FFDE00C1C7B3 /* Kingfisher */,
+				733D24162A9D56CA00A76478 /* ProgressHUD */,
 			);
 			productName = AvitoTestApp;
 			productReference = 7311631A2A98E1C700C1C7B3 /* AvitoTestApp.app */;
@@ -292,6 +310,7 @@
 			packageReferences = (
 				731163422A98EDFC00C1C7B3 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				731163502A99FFDE00C1C7B3 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				733D24152A9D56CA00A76478 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 			);
 			productRefGroup = 7311631B2A98E1C700C1C7B3 /* Products */;
 			projectDirPath = "";
@@ -328,7 +347,8 @@
 				7308C8622A9A213700AFDA3C /* AppCoordinator.swift in Sources */,
 				7311634C2A99EED600C1C7B3 /* NetworkManager.swift in Sources */,
 				733D24102A9BB2D100A76478 /* ProductDetailTableViewCell.swift in Sources */,
-				731163492A98F05D00C1C7B3 /* CollectionViewCell.swift in Sources */,
+				73E417B02A9FB01B00118FE4 /* Section.swift in Sources */,
+				731163492A98F05D00C1C7B3 /* ProductsCollectionViewCell.swift in Sources */,
 				733D24142A9CF2C700A76478 /* String + Extension.swift in Sources */,
 				7311633A2A98E87D00C1C7B3 /* CustomNavigationController.swift in Sources */,
 				733D24122A9CBEEC00A76478 /* ProductDetailTableViewHeader.swift in Sources */,
@@ -336,10 +356,14 @@
 				7308C8692A9A94AC00AFDA3C /* Fonts + Extension.swift in Sources */,
 				7308C8552A9A0E0A00AFDA3C /* StartPageViewControllerProtocol.swift in Sources */,
 				7308C8592A9A12B000AFDA3C /* ProductDetails.swift in Sources */,
+				73E417AB2A9F481B00118FE4 /* AlertService.swift in Sources */,
+				733D24192A9D56EE00A76478 /* UIBlockingProgressHUD.swift in Sources */,
 				7308C8642A9A856000AFDA3C /* ProductDetailView.swift in Sources */,
 				7308C8532A9A0DDF00AFDA3C /* StartPagePresenterProtocol.swift in Sources */,
 				7311633E2A98EB0A00C1C7B3 /* Resources.swift in Sources */,
 				731163352A98E76E00C1C7B3 /* StartPageViewController.swift in Sources */,
+				733D241D2A9D598700A76478 /* Alert.swift in Sources */,
+				73E417AE2A9F8CB500118FE4 /* CategoriesCollectionViewCell.swift in Sources */,
 				7308C8572A9A115F00AFDA3C /* ModuleFactory.swift in Sources */,
 				7308C8502A9A0DC200AFDA3C /* StartPagePresenter.swift in Sources */,
 				7308C8602A9A16D600AFDA3C /* ProductDetailViewControllerProtocol.swift in Sources */,
@@ -578,6 +602,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		733D24152A9D56CA00A76478 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -590,6 +622,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 731163502A99FFDE00C1C7B3 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		733D24162A9D56CA00A76478 /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 733D24152A9D56CA00A76478 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

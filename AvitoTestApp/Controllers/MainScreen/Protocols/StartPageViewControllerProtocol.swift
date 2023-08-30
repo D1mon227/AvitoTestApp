@@ -1,6 +1,7 @@
 import Foundation
 
-protocol StartPageViewControllerProtocol: AnyObject {
+protocol StartPageViewControllerProtocol: AlertPresenterDelegate {
     var presenter: StartPagePresenterProtocol? { get set }
     func reloadCollectionView()
+    func showErrorAlert()
 }

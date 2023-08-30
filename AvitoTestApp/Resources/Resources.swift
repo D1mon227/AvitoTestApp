@@ -14,3 +14,11 @@ enum Resources {
         static let backButton = UIImage(systemName: "chevron.backward")
     }
 }
+
+enum Sort {
+    case bydate
+    case fromCheap
+    case fromExpensive
+    case fromAtoZ
+    case fromZtoA
+}

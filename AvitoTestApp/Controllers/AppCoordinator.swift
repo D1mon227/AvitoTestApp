@@ -4,8 +4,8 @@ final class AppCoordinator {
     private let window: UIWindow?
     
     init(window: UIWindow?) {
-            self.window = window
-        }
+        self.window = window
+    }
     
     func switchToProductDetailsVC(id: String) {
         let productDetailsVC = ModuleFactory.makeProductDetailsModule(id: id, appCoordinator: self)

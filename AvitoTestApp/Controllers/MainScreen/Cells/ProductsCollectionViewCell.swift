@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class CollectionViewCell: UICollectionViewCell, DateConvertable {
+final class ProductsCollectionViewCell: UICollectionViewCell, DateConvertable {
     private lazy var productImage: UIImageView = {
         let element = UIImageView()
         element.layer.cornerRadius = 8

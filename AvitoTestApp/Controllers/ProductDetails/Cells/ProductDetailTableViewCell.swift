@@ -1,6 +1,10 @@
 import UIKit
 import SnapKit
 
+private enum Constraints {
+    static let leadingTrailingOffset: CGFloat = 16
+}
+
 final class ProductDetailTableViewCell: UITableViewCell {
     private lazy var descriptionLabel: UILabel = {
         let element = UILabel()
@@ -89,7 +93,7 @@ final class ProductDetailTableViewCell: UITableViewCell {
     func configureDescription(description: String) {
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(Constraints.leadingTrailingOffset)
             make.top.bottom.equalToSuperview()
         }
         
@@ -106,7 +110,7 @@ final class ProductDetailTableViewCell: UITableViewCell {
         contentView.addSubview(contactStackeView)
         contactStackeView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(Constraints.leadingTrailingOffset)
         }
         
         self.email.text = email

@@ -1,13 +1,21 @@
 import UIKit
 import SnapKit
 
+private enum Constraints {
+    static let height: CGFloat = 250
+    static let topOffset: CGFloat = 20
+    static let leadingTrailingOffset: CGFloat = 16
+}
+
 final class ProductDetailViewController: UIViewController, ProductDetailViewControllerProtocol, DateConvertable {
     var presenter: ProductDetailPresenterProtocol?
+    private var alertService: AlertServiceProtocol?
     private let productDetailView = ProductDetailView()
     
     init(presenter: ProductDetailPresenterProtocol?) {
         super.init(nibName: nil, bundle: nil)
         self.presenter = presenter
+        self.alertService = AlertService(delegate: self)
     }
     
     required init?(coder: NSCoder) {
@@ -34,6 +42,17 @@ final class ProductDetailViewController: UIViewController, ProductDetailViewCont
         productDetailView.tableView.reloadData()
     }
     
+    func showErrorAlert() {
+        let model = Alert(title: "Ошибка(",
+                          message: "Не удалось загрузить данные",
+                          leftButton: "Ок",
+                          rightButton: "Повторить") { [weak self] in
+            guard let self = self else { return }
+            self.presenter?.fetchProductInformation()
+        }
+        alertService?.showAlert(model: model)
+    }
+    
     private func setupTableView() {
         productDetailView.tableView.register(ProductDetailTableViewCell.self, forCellReuseIdentifier: ProductDetailTableViewCell.identifier)
         productDetailView.tableView.register(ProductDetailTableViewHeader.self, forHeaderFooterViewReuseIdentifier: ProductDetailTableViewHeader.identifier)
@@ -42,6 +61,7 @@ final class ProductDetailViewController: UIViewController, ProductDetailViewCont
     }
 }
 
+//MARK: UITableViewDataSource
 extension ProductDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         2
@@ -68,6 +88,7 @@ extension ProductDetailViewController: UITableViewDataSource {
     }
 }
 
+//MARK: UITableViewDelegate
 extension ProductDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProductDetailTableViewHeader.identifier) as? ProductDetailTableViewHeader else { return UIView() }
@@ -89,6 +110,7 @@ extension ProductDetailViewController: UITableViewDelegate {
     }
 }
 
+//MARK: SetupViews
 extension ProductDetailViewController {
     private func setupViews() {
         view.backgroundColor = .backgroundDay
@@ -108,7 +130,7 @@ extension ProductDetailViewController {
         productDetailView.imageContainerView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(250)
+            make.height.equalTo(Constraints.height)
         }
         
         productDetailView.blurredImageView.snp.makeConstraints { make in
@@ -120,8 +142,8 @@ extension ProductDetailViewController {
         }
         
         productDetailView.productInfoStackView.snp.makeConstraints { make in
-            make.top.equalTo(productDetailView.imageContainerView.snp.bottom).offset(20)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(productDetailView.imageContainerView.snp.bottom).offset(Constraints.topOffset)
+            make.leading.trailing.equalToSuperview().inset(Constraints.leadingTrailingOffset)
         }
         
         productDetailView.tableView.snp.makeConstraints { make in
