@@ -2,7 +2,8 @@ import UIKit
 import SnapKit
 
 private enum Constraints {
-    static let height: CGFloat = 250
+    static let heightImage: CGFloat = 250
+    static let heightStack: CGFloat = 50
     static let topOffset: CGFloat = 20
     static let leadingTrailingOffset: CGFloat = 16
 }
@@ -26,6 +27,7 @@ final class ProductDetailViewController: UIViewController, ProductDetailViewCont
         super.viewDidLoad()
         setupViews()
         setupTableView()
+        setupTargets()
         presenter?.fetchProductInformation()
     }
     
@@ -47,7 +49,8 @@ final class ProductDetailViewController: UIViewController, ProductDetailViewCont
         let model = Alert(title: "Ошибка(",
                           message: "Не удалось загрузить данные",
                           leftButton: "Ок",
-                          rightButton: "Повторить") { [weak self] in
+                          rightButton: "Повторить",
+                          style: .alert) { [weak self] in
             guard let self else { return }
             self.presenter?.fetchProductInformation()
         }
@@ -59,6 +62,20 @@ final class ProductDetailViewController: UIViewController, ProductDetailViewCont
         productDetailView.tableView.register(ProductDetailTableViewHeader.self, forHeaderFooterViewReuseIdentifier: ProductDetailTableViewHeader.identifier)
         productDetailView.tableView.dataSource = self
         productDetailView.tableView.delegate = self
+    }
+    
+    private func setupTargets() {
+        productDetailView.callButton.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func callButtonTapped() {
+        guard let phoneNumber = presenter?.productInfo?.phone_number else { return }
+        let model = Alert(title: nil,
+                          message: nil,
+                          leftButton: phoneNumber,
+                          rightButton: "Отмена",
+                          style: .actionSheet){}
+        alertService?.showAlert(model: model)
     }
 }
 
@@ -115,16 +132,26 @@ extension ProductDetailViewController: UITableViewDelegate {
 extension ProductDetailViewController {
     private func setupViews() {
         view.backgroundColor = .backgroundDay
-        view.addSubview(productDetailView.imageContainerView)
-        productDetailView.imageContainerView.addSubview(productDetailView.blurredImage)
-        productDetailView.imageContainerView.addSubview(productDetailView.blurredImageView)
-        productDetailView.imageContainerView.addSubview(productDetailView.image)
-        productDetailView.productInfoStackView.addArrangedSubview(productDetailView.titleLabel)
-        productDetailView.productInfoStackView.addArrangedSubview(productDetailView.priceLabel)
-        productDetailView.productInfoStackView.addArrangedSubview(productDetailView.addressLabel)
-        productDetailView.productInfoStackView.addArrangedSubview(productDetailView.dateLabel)
-        view.addSubview(productDetailView.productInfoStackView)
-        view.addSubview(productDetailView.tableView)
+        [productDetailView.blurredImage,
+         productDetailView.blurredImageView,
+         productDetailView.image].forEach { view in
+            productDetailView.imageContainerView.addSubview(view)
+        }
+        [productDetailView.titleLabel,
+         productDetailView.priceLabel,
+         productDetailView.addressLabel,
+         productDetailView.dateLabel].forEach { label in
+            productDetailView.productInfoStackView.addArrangedSubview(label)
+        }
+        [productDetailView.callButton, productDetailView.writeButton].forEach { button in
+            productDetailView.buttonsStack.addArrangedSubview(button)
+        }
+        [productDetailView.imageContainerView,
+         productDetailView.productInfoStackView,
+         productDetailView.buttonsStack,
+         productDetailView.tableView].forEach { view in
+            self.view.addSubview(view)
+        }
         setupConstraints()
     }
     
@@ -132,7 +159,7 @@ extension ProductDetailViewController {
         productDetailView.imageContainerView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(Constraints.height)
+            make.height.equalTo(Constraints.heightImage)
         }
         
         productDetailView.blurredImage.snp.makeConstraints { make in
@@ -152,8 +179,22 @@ extension ProductDetailViewController {
             make.leading.trailing.equalToSuperview().inset(Constraints.leadingTrailingOffset)
         }
         
+        productDetailView.callButton.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+        }
+        
+        productDetailView.writeButton.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+        }
+        
+        productDetailView.buttonsStack.snp.makeConstraints { make in
+            make.top.equalTo(productDetailView.productInfoStackView.snp.bottom).offset(Constraints.topOffset)
+            make.leading.trailing.equalToSuperview().inset(Constraints.leadingTrailingOffset)
+            make.height.equalTo(Constraints.heightStack)
+        }
+        
         productDetailView.tableView.snp.makeConstraints { make in
-            make.top.equalTo(productDetailView.productInfoStackView.snp.bottom)
+            make.top.equalTo(productDetailView.buttonsStack.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }

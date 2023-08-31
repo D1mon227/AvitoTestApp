@@ -17,17 +17,32 @@ final class AlertService: AlertServiceProtocol {
     }
     
     func showAlert(model: Alert) {
-        let alert = UIAlertController(title: model.title,
+        let alert: UIAlertController
+        
+        if model.style == .alert {
+            alert = UIAlertController(title: model.title,
                                       message: model.message,
                                       preferredStyle: .alert)
-        let leftAction = UIAlertAction(title: model.leftButton,
-                                       style: .cancel)
-        alert.addAction(leftAction)
-        let rightAction = UIAlertAction(title: model.rightButton,
-                                        style: .default) { _ in
-            model.completion()
+            let leftAction = UIAlertAction(title: model.leftButton,
+                                           style: .cancel)
+            let rightAction = UIAlertAction(title: model.rightButton,
+                                            style: .default) { _ in
+                model.completion()
+            }
+            alert.addAction(leftAction)
+            alert.addAction(rightAction)
+        } else {
+            alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+            
+            let callAction = UIAlertAction(title: model.leftButton,
+                                           style: .default)
+            let cancelAction = UIAlertAction(title: model.rightButton,
+                                             style: .cancel)
+            alert.addAction(callAction)
+            alert.addAction(cancelAction)
         }
-        alert.addAction(rightAction)
         delegate?.present(alert, animated: true, completion: nil)
     }
 }

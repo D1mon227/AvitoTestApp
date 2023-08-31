@@ -17,7 +17,7 @@ final class ProductsCollectionViewCell: UICollectionViewCell, DateConvertable {
     
     private lazy var productTitle: UILabel = {
         let element = UILabel()
-        element.font = .bodyRegular
+        element.font = .bodyRegular2
         element.textAlignment = .left
         element.textColor = .blackDay
         element.numberOfLines = 2
@@ -68,11 +68,9 @@ final class ProductsCollectionViewCell: UICollectionViewCell, DateConvertable {
     
     private func setupViews() {
         backgroundColor = .backgroundDay
-        addSubview(productImage)
-        addSubview(productTitle)
-        addSubview(productPrice)
-        addSubview(productLocation)
-        addSubview(productDate)
+        [productImage, productTitle, productPrice, productLocation, productDate].forEach { view in
+            addSubview(view)
+        }
     }
     
     private func setupConstraints() {

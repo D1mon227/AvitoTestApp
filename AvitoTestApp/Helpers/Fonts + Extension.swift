@@ -8,7 +8,8 @@ extension UIFont {
     
     // Body Fonts
     static var bodyBold = UIFont.boldSystemFont(ofSize: 15)
-    static var bodyRegular = UIFont.systemFont(ofSize: 15, weight: .regular)
+    static var bodyRegular1 = UIFont.systemFont(ofSize: 17, weight: .regular)
+    static var bodyRegular2 = UIFont.systemFont(ofSize: 15, weight: .regular)
     
     // Caption Fonts
     static var caption1 = UIFont.systemFont(ofSize: 13, weight: .regular)

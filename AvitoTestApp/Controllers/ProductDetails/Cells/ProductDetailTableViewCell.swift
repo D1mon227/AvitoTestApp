@@ -9,7 +9,7 @@ final class ProductDetailTableViewCell: UITableViewCell {
     private lazy var descriptionLabel: UILabel = {
         let element = UILabel()
         element.textColor = .blackDay
-        element.font = .bodyRegular
+        element.font = .bodyRegular2
         element.textAlignment = .left
         element.numberOfLines = 0
         element.sizeToFit()
@@ -48,7 +48,7 @@ final class ProductDetailTableViewCell: UITableViewCell {
         element.textColor = .gray
         element.textAlignment = .left
         element.text = "Email: "
-        element.font = .bodyRegular
+        element.font = .bodyRegular2
         element.sizeToFit()
         return element
     }()
@@ -57,7 +57,7 @@ final class ProductDetailTableViewCell: UITableViewCell {
         let element = UILabel()
         element.textColor = .blackDay
         element.textAlignment = .left
-        element.font = .bodyRegular
+        element.font = .bodyRegular2
         element.sizeToFit()
         return element
     }()
@@ -67,7 +67,7 @@ final class ProductDetailTableViewCell: UITableViewCell {
         element.textColor = .gray
         element.textAlignment = .left
         element.text = "Телефон: "
-        element.font = .bodyRegular
+        element.font = .bodyRegular2
         element.sizeToFit()
         return element
     }()
@@ -76,14 +76,14 @@ final class ProductDetailTableViewCell: UITableViewCell {
         let element = UILabel()
         element.textColor = .blackDay
         element.textAlignment = .left
-        element.font = .bodyRegular
+        element.font = .bodyRegular2
         element.sizeToFit()
         return element
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .backgroundDay
+        contentView.backgroundColor = .backgroundDay
     }
     
     required init?(coder: NSCoder) {
@@ -101,12 +101,15 @@ final class ProductDetailTableViewCell: UITableViewCell {
     }
     
     func configureContactInfo(email: String, phoneNumber: String) {
-        emailStackView.addArrangedSubview(emailLabel)
-        emailStackView.addArrangedSubview(self.email)
-        phoneNumberStackView.addArrangedSubview(phoneNumberLabel)
-        phoneNumberStackView.addArrangedSubview(self.phoneNumber)
-        contactStackeView.addArrangedSubview(emailStackView)
-        contactStackeView.addArrangedSubview(phoneNumberStackView)
+        [emailLabel, self.email].forEach { label in
+            emailStackView.addArrangedSubview(label)
+        }
+        [phoneNumberLabel, self.phoneNumber].forEach { label in
+            phoneNumberStackView.addArrangedSubview(label)
+        }
+        [emailStackView, phoneNumberStackView].forEach { stack in
+            contactStackeView.addArrangedSubview(stack)
+        }
         contentView.addSubview(contactStackeView)
         contactStackeView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()

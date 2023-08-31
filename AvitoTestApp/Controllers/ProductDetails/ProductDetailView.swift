@@ -55,7 +55,7 @@ final class ProductDetailView {
     lazy var addressLabel: UILabel = {
         let element = UILabel()
         element.textColor = .blackDay
-        element.font = .bodyRegular
+        element.font = .bodyRegular2
         return element
     }()
     
@@ -63,6 +63,35 @@ final class ProductDetailView {
         let element = UILabel()
         element.textColor = .gray
         element.font = .caption1
+        return element
+    }()
+    
+    lazy var buttonsStack: UIStackView = {
+        let element = UIStackView()
+        element.axis = .horizontal
+        element.spacing = 10
+        element.alignment = .center
+        element.distribution = .fillEqually
+        return element
+    }()
+    
+    lazy var callButton: UIButton = {
+        let element = UIButton()
+        element.setTitle("📞 Позвонить", for: .normal)
+        element.backgroundColor = .customGreen
+        element.layer.cornerRadius = 5
+        element.tintColor = .white
+        element.titleLabel?.font = .bodyRegular1
+        return element
+    }()
+    
+    lazy var writeButton: UIButton = {
+        let element = UIButton()
+        element.setTitle("💬 Написать", for: .normal)
+        element.backgroundColor = .customBlue
+        element.layer.cornerRadius = 5
+        element.tintColor = .white
+        element.titleLabel?.font = .bodyRegular1
         return element
     }()
     

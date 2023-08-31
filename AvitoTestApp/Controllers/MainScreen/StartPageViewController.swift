@@ -43,7 +43,8 @@ final class StartPageViewController: UIViewController, StartPageViewControllerPr
         let model = Alert(title: "Ошибка(",
                           message: "Не удалось загрузить данные",
                           leftButton: "Ок",
-                          rightButton: "Повторить") { [weak self] in
+                          rightButton: "Повторить",
+                          style: .alert) { [weak self] in
             guard let self else { return }
             self.presenter?.fetchProducts()
         }
