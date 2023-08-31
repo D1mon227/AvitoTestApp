@@ -1,6 +1,10 @@
 import UIKit
 import SnapKit
 
+private enum leadingOffset {
+    static let leadingOffset: CGFloat = 16
+}
+
 final class ProductDetailTableViewHeader: UITableViewHeaderFooterView {
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
@@ -25,7 +29,7 @@ final class ProductDetailTableViewHeader: UITableViewHeaderFooterView {
     
     private func setupConstraints() {
         headerLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(leadingOffset.leadingOffset)
             make.centerY.equalToSuperview()
         }
     }

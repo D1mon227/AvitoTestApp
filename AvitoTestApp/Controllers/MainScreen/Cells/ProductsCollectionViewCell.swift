@@ -1,6 +1,11 @@
 import UIKit
 import SnapKit
 
+private enum Constraints {
+    static let topMainOffset: CGFloat = 7
+    static let topOffset: CGFloat = 2
+}
+
 final class ProductsCollectionViewCell: UICollectionViewCell, DateConvertable {
     private lazy var productImage: UIImageView = {
         let element = UIImageView()
@@ -78,22 +83,22 @@ final class ProductsCollectionViewCell: UICollectionViewCell, DateConvertable {
         
         productTitle.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(productImage.snp.bottom).offset(7)
+            make.top.equalTo(productImage.snp.bottom).offset(Constraints.topMainOffset)
         }
         
         productPrice.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(productTitle.snp.bottom).offset(7)
+            make.top.equalTo(productTitle.snp.bottom).offset(Constraints.topMainOffset)
         }
         
         productLocation.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(productPrice.snp.bottom).offset(7)
+            make.top.equalTo(productPrice.snp.bottom).offset(Constraints.topMainOffset)
         }
         
         productDate.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(productLocation.snp.bottom).offset(2)
+            make.top.equalTo(productLocation.snp.bottom).offset(Constraints.topOffset)
         }
     }
 }
