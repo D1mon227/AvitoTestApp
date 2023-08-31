@@ -4,7 +4,7 @@ final class ProductDetailPresenter: ProductDetailPresenterProtocol {
     weak var view: ProductDetailViewControllerProtocol?
     private let networkManager: NetworkManager
     private let appCoordinator: AppCoordinator
-    private var productID: String?
+    private var productID: String
     
     var productInfo: ProductInfo? {
         didSet {
@@ -23,8 +23,10 @@ final class ProductDetailPresenter: ProductDetailPresenterProtocol {
     
     func fetchProductInformation() {
         UIBlockingProgressHUD.show()
-        guard let id = productID else { return }
-        networkManager.fetchProductInfo(id: id) { [weak self] result in
+        
+        let urlString = Resources.Network.baseURL + Resources.Network.Paths.detailsPage + "\(productID).json"
+        guard let url = URL(string: urlString) else { return }
+        networkManager.fetchData(for: url, type: ProductInfo.self) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let data):

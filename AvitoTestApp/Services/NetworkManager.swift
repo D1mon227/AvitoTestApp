@@ -1,80 +1,63 @@
 import Foundation
 
-enum NetworkError: Error {
+enum NetworkClientError: Error {
     case httpStatusCode(Int)
     case urlRequestError(Error)
-    case urlSessionError
+    case parsingError
 }
 
-final class NetworkManager {
-    private let urlSession = URLSession.shared
-    private var task: URLSessionTask?
+protocol NetworkClient {
+    func fetchData<T:Decodable>(
+        for url: URL,
+        type: T.Type,
+        completion: @escaping (Result<T, Error>) -> Void)
+}
+
+final class NetworkManager: NetworkClient {
+    private let urlSession: URLSession
+    private let decoder: JSONDecoder
     
-    func fetchProducts(completion: @escaping (Result<[Products], Error>) -> Void) {
-        
-        assert(Thread.isMainThread)
-        if task != nil { return }
-        
-        let urlString = Resources.Network.baseURL + Resources.Network.Paths.mainPage
-        guard let url = URL(string: urlString) else { return }
-        let task = urlSession.dataTask(with: url) { data, responce, error in
-            if let data = data,
-               let responce = responce,
-               let statusCode = (responce as? HTTPURLResponse)?.statusCode {
-                if 200..<300 ~= statusCode {
-                    let decoder = JSONDecoder()
-                    if let json = try? decoder.decode(Advertisements.self, from: data) {
-                        DispatchQueue.main.async {
-                            completion(.success(json.advertisements))
-                        }
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        completion(.failure(NetworkError.httpStatusCode(statusCode)))
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    guard let error = error else { return }
-                    completion(.failure(NetworkError.urlRequestError(error)))
-                }
-            }
-        }
-        self.task = task
-        task.resume()
+    init(urlSession: URLSession = URLSession.shared,
+         decoder: JSONDecoder = JSONDecoder()) {
+        self.urlSession = urlSession
+        self.decoder = decoder
     }
     
-    func fetchProductInfo(id: String, completion: @escaping (Result<ProductInfo, Error>) -> Void) {
+    func fetchData<T:Decodable>(for url: URL,
+                                type: T.Type,
+                                completion: @escaping (Result<T, Error>) -> Void) {
         
-        assert(Thread.isMainThread)
-        if task != nil { return }
-        
-        let urlString = Resources.Network.baseURL + Resources.Network.Paths.detailsPage + "\(id).json"
-        guard let url = URL(string: urlString) else { return }
-        let task = urlSession.dataTask(with: url) { data, responce, error in
-            if let data = data,
-               let responce = responce,
-               let statusCode = (responce as? HTTPURLResponse)?.statusCode {
-                if 200..<300 ~= statusCode {
-                    let decoder = JSONDecoder()
-                    if let json = try? decoder.decode(ProductInfo.self, from: data) {
-                        DispatchQueue.main.async {
-                            completion(.success(json))
-                        }
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        completion(.failure(NetworkError.httpStatusCode(statusCode)))
-                    }
-                }
-            } else {
+            let fulFillCompletion: (Result<T, Error>) -> Void = { result in
                 DispatchQueue.main.async {
-                    guard let error = error else { return }
-                    completion(.failure(NetworkError.urlRequestError(error)))
+                    completion(result)
                 }
             }
+            
+            let request = URLRequest(url: url)
+            let task = urlSession.dataTask(with: request) { data, responce, error in
+                if let data = data,
+                   let responce = responce,
+                   let statusCode = (responce as? HTTPURLResponse)?.statusCode {
+                    if 200..<300 ~= statusCode {
+                        self.parse(data: data, type: type, completion: fulFillCompletion)
+                    } else {
+                        fulFillCompletion(.failure(NetworkClientError.httpStatusCode(statusCode)))
+                    }
+                } else if let error = error {
+                    fulFillCompletion(.failure(NetworkClientError.urlRequestError(error)))
+                }
+            }
+            task.resume()
+    }
+    
+    private func parse<T: Decodable>(data: Data,
+                                     type: T.Type,
+                                     completion: @escaping (Result<T, Error>) -> Void) {
+        do {
+            let responce = try decoder.decode(T.self, from: data)
+            completion(.success(responce))
+        } catch {
+            completion(.failure(NetworkClientError.parsingError))
         }
-        self.task = task
-        task.resume()
     }
 }

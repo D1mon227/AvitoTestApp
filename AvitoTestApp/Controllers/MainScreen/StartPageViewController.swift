@@ -34,10 +34,8 @@ final class StartPageViewController: UIViewController, StartPageViewControllerPr
     }
     
     func reloadCollectionView() {
-        DispatchQueue.main.async {
-            self.collectionView.performBatchUpdates {
-                self.collectionView.reloadSections(IndexSet(integer: 1))
-            }
+        collectionView.performBatchUpdates {
+            collectionView.reloadSections(IndexSet(integer: 1))
         }
     }
     
@@ -46,7 +44,7 @@ final class StartPageViewController: UIViewController, StartPageViewControllerPr
                           message: "Не удалось загрузить данные",
                           leftButton: "Ок",
                           rightButton: "Повторить") { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             self.presenter?.fetchProducts()
         }
         alertService?.showAlert(model: model)
@@ -64,7 +62,7 @@ final class StartPageViewController: UIViewController, StartPageViewControllerPr
     
     private func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
-            guard let self = self else { return nil }
+            guard let self else { return nil }
             let section = self.sections[sectionIndex]
             switch section.type {
             case .categories:
