@@ -31,6 +31,7 @@ final class ProductDetailViewController: UIViewController, ProductDetailViewCont
     
     func updateProductImage(model: ProductInfo) {
         productDetailView.image.setImage(with: model.image_url)
+        productDetailView.blurredImage.setImage(with: model.image_url)
         productDetailView.titleLabel.text = model.title
         productDetailView.priceLabel.text = model.price
         productDetailView.addressLabel.text = "\(model.location), \(model.address)"
@@ -115,6 +116,7 @@ extension ProductDetailViewController {
     private func setupViews() {
         view.backgroundColor = .backgroundDay
         view.addSubview(productDetailView.imageContainerView)
+        productDetailView.imageContainerView.addSubview(productDetailView.blurredImage)
         productDetailView.imageContainerView.addSubview(productDetailView.blurredImageView)
         productDetailView.imageContainerView.addSubview(productDetailView.image)
         productDetailView.productInfoStackView.addArrangedSubview(productDetailView.titleLabel)
@@ -133,10 +135,14 @@ extension ProductDetailViewController {
             make.height.equalTo(Constraints.height)
         }
         
-        productDetailView.blurredImageView.snp.makeConstraints { make in
+        productDetailView.blurredImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
+        productDetailView.blurredImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
         productDetailView.image.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

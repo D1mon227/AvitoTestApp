@@ -8,8 +8,15 @@ final class ProductDetailView {
     }()
     
     lazy var blurredImageView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
         let element = UIVisualEffectView(effect: blurEffect)
+        return element
+    }()
+    
+    lazy var blurredImage: UIImageView = {
+        let element = UIImageView()
+        element.contentMode = .scaleAspectFill
+        element.clipsToBounds = true
         return element
     }()
     
