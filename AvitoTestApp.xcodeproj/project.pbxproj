@@ -234,7 +234,6 @@
 			children = (
 				73E417AA2A9F481B00118FE4 /* AlertService.swift */,
 				7311634B2A99EED600C1C7B3 /* NetworkManager.swift */,
-				73E417AF2A9FB01B00118FE4 /* Section.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -245,6 +244,7 @@
 				733D241C2A9D598700A76478 /* Alert.swift */,
 				7311634E2A99F29700C1C7B3 /* Products.swift */,
 				7308C8582A9A12B000AFDA3C /* ProductDetails.swift */,
+				73E417AF2A9FB01B00118FE4 /* Section.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

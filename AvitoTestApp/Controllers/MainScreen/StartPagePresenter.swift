@@ -19,11 +19,14 @@ final class StartPagePresenter: StartPagePresenterProtocol {
     
     func fetchProducts() {
         UIBlockingProgressHUD.show()
-        networkManager.fetchProducts { [weak self] result in
+        
+        let urlString = Resources.Network.baseURL + Resources.Network.Paths.mainPage
+        guard let url = URL(string: urlString) else { return }
+        networkManager.fetchData(for: url, type: Advertisements.self) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let data):
-                self.products = data
+                self.products = data.advertisements
             case .failure(_):
                 self.view?.showErrorAlert()
             }

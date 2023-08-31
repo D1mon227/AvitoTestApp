@@ -47,7 +47,7 @@ final class ProductDetailViewController: UIViewController, ProductDetailViewCont
                           message: "Не удалось загрузить данные",
                           leftButton: "Ок",
                           rightButton: "Повторить") { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             self.presenter?.fetchProductInformation()
         }
         alertService?.showAlert(model: model)
