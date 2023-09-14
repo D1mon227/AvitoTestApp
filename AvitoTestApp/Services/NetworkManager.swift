@@ -27,27 +27,29 @@ final class NetworkManager: NetworkClient {
                                 type: T.Type,
                                 completion: @escaping (Result<T, Error>) -> Void) {
         
-            let fulFillCompletion: (Result<T, Error>) -> Void = { result in
-                DispatchQueue.main.async {
-                    completion(result)
-                }
+        let fulFillCompletion: (Result<T, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
             }
-            
-            let request = URLRequest(url: url)
-            let task = urlSession.dataTask(with: request) { data, responce, error in
-                if let data = data,
-                   let responce = responce,
-                   let statusCode = (responce as? HTTPURLResponse)?.statusCode {
-                    if 200..<300 ~= statusCode {
-                        self.parse(data: data, type: type, completion: fulFillCompletion)
-                    } else {
-                        fulFillCompletion(.failure(NetworkClientError.httpStatusCode(statusCode)))
-                    }
-                } else if let error = error {
-                    fulFillCompletion(.failure(NetworkClientError.urlRequestError(error)))
+        }
+        
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 5
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+        let task = urlSession.dataTask(with: request) { data, responce, error in
+            if let data = data,
+               let responce = responce,
+               let statusCode = (responce as? HTTPURLResponse)?.statusCode {
+                if 200..<300 ~= statusCode {
+                    self.parse(data: data, type: type, completion: fulFillCompletion)
+                } else {
+                    fulFillCompletion(.failure(NetworkClientError.httpStatusCode(statusCode)))
                 }
+            } else if let error = error {
+                fulFillCompletion(.failure(NetworkClientError.urlRequestError(error)))
             }
-            task.resume()
+        }
+        task.resume()
     }
     
     private func parse<T: Decodable>(data: Data,
